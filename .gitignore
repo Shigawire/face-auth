@@ -1,4 +1,5 @@
 face-auth-*
+app/face-auth-*
 .DS_Store
 .tags*
 /.idea/
