@@ -1,8 +1,7 @@
 @FaceAuthApp.controller 'AppController', [
-  '$scope'
-  '$rootScope'
-  ($scope, $rootScope) ->
-    $scope.$on '$viewContentLoaded', ->
-      console.log "view content is loaded"
-    return
+  '$localStorage'
+  ($localStorage) ->
+    # if the storage is not set up yet
+    $localStorage.settings = {} unless $localStorage.settings
+    $localStorage.users = [] unless $localStorage.users
 ]

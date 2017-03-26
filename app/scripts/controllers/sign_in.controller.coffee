@@ -11,9 +11,12 @@
     # load the webcam service to the scope
     vm.webcam = WebcamService.webcam
 
-    # close the dialog window 
+    # close the dialog window and pass the identifiedUser back to the dashboardController
     vm.closeSignInDialog = ->
-      $mdDialog.hide()
+      $mdDialog.hide(vm.identifiedUser)
+
+    vm.cancelSignInDialog = ->
+      $mdDialog.hide(undefined)
 
     # take a snapshot and authenticate the user
     vm.doAuthSnapshot = ->
@@ -39,6 +42,7 @@
             # user.personId is in our database, data.personId is the one returned from the face API
             user.personId == userData.data.person.personId)[0]
           vm.snapshot.identified = true
+          
 
           # draw the user's faceLandmarks into the snapshot
           vm.snapshot.withLandmarks = FaceSnapshotService.addLandmarks vm.snapshot.data, userData.data.face

@@ -2,10 +2,12 @@
   '$scope'
   '$mdDialog'
   'Person'
-  ($scope, $mdDialog, Person) ->
+  '$localStorage'
+  ($scope, $mdDialog, Person, $localStorage) ->
     vm = @
     vm.isLocked = true
-
+    vm.settings = $localStorage.settings 
+    
     vm.showSignUpDialog = (ev) ->
       $mdDialog.show(
         controller: 'SignUpController'
@@ -23,7 +25,8 @@
         templateUrl: 'templates/views/sign_in.html'
         parent: angular.element(document.body)
         targetEvent: ev
-        clickOutsideToClose: false)
+        clickOutsideToClose: false).then (result) ->
+          vm.currentUser = result
       return
     
     return vm

@@ -95,9 +95,6 @@
                   vm.stepsFinished[3] = true
 
                   # add the user to the internal database
-                  if !$localStorage.users
-                    $localStorage.users = []
-
                   $localStorage.users.push {personId: user.personId, name: vm.name, secret: vm.secret}
                 else if data.status == 'failed'
                   $interval.cancel checkTrainingInterval
@@ -112,7 +109,7 @@
     # count the number of snapshots in snapshotList with a detected (i.e. accepted) face
     vm.acceptedSnapshots = -> 
       (vm.snapshotList.filter (snapshot) ->
-        item.snapshot == true).length
+        snapshot.accepted == true).length
 
     vm.closeSignUpDialog = ->
       $mdDialog.hide()

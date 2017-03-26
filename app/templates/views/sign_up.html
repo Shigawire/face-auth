@@ -85,10 +85,10 @@
                       </div>
                       <md-input-container class="md-block">
                         <label>Dein Geheimnis. Es kann nur mit deinem Gesicht entsperrt werden.</label>
-                        <textarea ng-model="vm.secret" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+                        <textarea ng-model="vm.secret" md-maxlength="150" rows="2" required md-select-on-focus></textarea>
                       </md-input-container>
                       <md-input-container class="md-block">
-                        <md-button class="md-raised md-primary center" ng-disabled="!vm.name" ng-click="vm.createUser()">
+                        <md-button class="md-raised md-primary center" ng-disabled="!vm.name || !vm.secret" ng-click="vm.createUser()">
                           Registrierung abschließen
                         </md-button>
                       </md-input-container>
@@ -139,25 +139,6 @@
             </md-content>
           </md-tab>
         </md-tabs>
-<!--        
-           <div layout="row" flex="100">
-            <md-card flex="26" ng-repeat="snapshot in vm.snapshotList">
-              <img ng-src="{{snapshot}}" class="md-card-image">
-              <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-icon-button" aria-label="Favorite">
-                  <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Settings">
-                  <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Share">
-                  <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-                </md-button>
-              </md-card-actions>
-            </md-card>
-          </div>
-        </div>
-      </div>-->
     </md-dialog-content>
 
     <md-dialog-actions layout="row" md-content>

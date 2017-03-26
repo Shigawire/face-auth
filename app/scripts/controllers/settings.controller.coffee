@@ -3,7 +3,8 @@
   '$mdDialog'
   '$localStorage'
   '$http'
-  ($scope, $mdDialog, $localStorage, $http) ->
+  'Person'
+  ($scope, $mdDialog, $localStorage, $http, Person) ->
     vm = @
 
     if !$localStorage.settings
@@ -15,6 +16,9 @@
       confirm = $mdDialog.prompt().title('Bitte gib deinen Microsoft Cognitive Services API Key an').placeholder('API Key').ariaLabel('API Key').initialValue(vm.settings.apiKey).targetEvent(ev).ok('Speichern').cancel('Abbrechen')
       $mdDialog.show(confirm).then ((result) ->
         vm.settings.apiKey = result
+        
+        # reload the window to ensure that the $localStorage settings have been passed to all injecting services
+        location.reload()
         return
       )
       return
@@ -34,6 +38,9 @@
               }
           }).then ((response) ->
           vm.settings.personGroup = result
+
+          # initiate a training of the person group
+          Person.trainFaces {personGroup: result}
           return
         ), (response) ->
           # failure callback
