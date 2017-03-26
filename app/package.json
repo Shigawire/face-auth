@@ -1,5 +1,11 @@
 {
   "name": "face-auth",
+  "description": "Authenticate users against a snapshot of their face",
+  "author": "Fabian Kübler",
+  "productName": "Face Authentication",
   "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "main": "main.js"
 }

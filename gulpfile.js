@@ -13,7 +13,7 @@ var coffee = require('gulp-coffee'),
 
 var options = {
     COFFEE_SOURCE   : "app/scripts/**/*.coffee",
-    COFFEE_DEST     : "build/dist/assets/js/",
+    COFFEE_DEST     : "app/assets/js/",
 };
 
 // create the gulp task
@@ -31,6 +31,21 @@ gulp.task('coffee', function () {
     .pipe(livereload(server));
 });
 
+// move bower_components files into the app
+gulp.task('copy', function() {
+  gulp.src([
+    'bower_components/angular/angular.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/angular-resource/angular-resource.js',
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/angular-aria/angular-aria.js',
+    'bower_components/angular-material/angular-material.js',
+    'bower_components/ngstorage/ngStorage.js',
+    'bower_components/webcam/dist/webcam.min.js',
+    'bower_components/angular-material/angular-material.css'
+    ])
+    .pipe(gulp.dest( options.COFFEE_DEST + 'libs' ));
+});
 
 gulp.task('watch', function () {
   server.listen( options.LIVE_RELOAD_PORT , function (err) {
@@ -40,3 +55,5 @@ gulp.task('watch', function () {
     gulp.watch(options.COFFEE_SOURCE , ['coffee']);
   });
 });
+
+gulp.task('build', ['coffee', 'copy']);

@@ -1,16 +1,27 @@
 {
   "name": "face-auth",
+  "description": "Authenticate users against a snapshot of their face",
+  "author": "Fabian Kübler",
   "productName": "Face Authentication",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "main": "app/main.js",
+  "build": {
+    "appId": "io.urmel.fabian.face-auth",
+    "mac": {
+      "category": "io.urmel.fabian.face-auth.authentication"
+    }
+  },
   "dependencies": {},
   "devDependencies": {
     "Q": "0.0.1",
     "asar": "^0.13.0",
     "electron": "^1.6.2",
+    "electron-builder": "^16.3.0",
     "fs-jetpack": "^0.13.1",
     "gulp": "^3.9.1",
     "gulp-changed": "^2.0.0",
