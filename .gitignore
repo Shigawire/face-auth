@@ -18,6 +18,7 @@ app/face-auth-*
 /vendor/.gclient
 node_modules/
 bower_components/
+build/dist/
 *.xcodeproj
 *.swp
 *.pyc

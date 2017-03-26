@@ -1,6 +1,5 @@
 var path = require('path');
 var appRoot = path.join(__dirname, '..');
-require('electron-compile').init(appRoot, require.resolve('./main'));
 
 var app = require('electron').app;  // Module to control application life.
 var BrowserWindow = require('electron').BrowserWindow;  // Module to create native browser window.
