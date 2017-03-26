@@ -21,12 +21,7 @@ gulp.task('run', function () {
   childProcess.spawn(electron, ['--debug=5858','./app'], { stdio: 'inherit' }); 
 });
 
-// gulp.task('run:npm-install', shell.task([
-//   'npm --prefix ./build/dist install ./build/dist --production',
-//   './node_modules/.bin/electron-rebuild -m ./build/dist/node_modules',
-// ]));
-
-// Compile Our Coffee
+// Transpile coffee to JavaScript
 gulp.task('coffee', function () {
   gulp.src( options.COFFEE_SOURCE )
     .pipe(changed (options.COFFEE_SOURCE))
@@ -42,7 +37,6 @@ gulp.task('watch', function () {
     if (err) {
         return console.log(err)
     };
-
     gulp.watch(options.COFFEE_SOURCE , ['coffee']);
   });
 });
