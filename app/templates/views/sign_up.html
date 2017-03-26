@@ -1,0 +1,166 @@
+<md-dialog aria-label="Registrierung"  style="width: 90%">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Registrierung</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <md-tabs md-dynamic-height md-border-bottom md-selected="vm.selectedIndex">
+          <md-tab label="Fotos" ng-disabled="vm.selectedIndex != 0">
+            <md-content>
+              <div class="md-dialog-content" >
+                  <div layout="column">
+                    <p class="md-body-1">
+                    Bitte gib uns paar Fotos von deinem Gesicht, um die Applikation mit deinen biometrischen Daten zu trainieren.
+                    Sobald wir drei gute Fotos haben, kannst du den Registrierungsvorgang fortsetzen.
+                    </p>
+                    <div layout="row">
+                      <div flex="33" ng-repeat="snapshot in vm.snapshotList">
+                        <md-card>
+                            <img ng-src="{{snapshot.data}}" class="md-card-image" ng-if="!snapshot.withLandmarks">
+                            <img ng-src="{{snapshot.withLandmarks}}" class="md-card-image" ng-if="snapshot.withLandmarks">
+                            <md-card-actions layout="row" layout-align="end center">
+                              <div>
+                                <md-progress-circular md-diameter="25" ng-show="snapshot.inProgress" md-mode="indeterminate"></md-progress-circular>
+                              </div>
+                              <md-button class="md-raised md-warn center" ng-if="!snapshot.inProgress && !snapshot.accepted">
+                                ungültig
+                              </md-button>
+                              <md-button class="md-raised md-accent center" ng-if="!snapshot.in_progress && snapshot.accepted">
+                                gültig
+                              </md-button>
+                              <md-button class="md-raised md-danger center" ng-click="vm.removeSnapshot(snapshot)" ng-if="!snapshot.inProgress && !snapshot.accepted">
+                                <md-icon>
+                                  clear
+                                </md-icon>
+                                entfernen
+                              </md-button>
+                            </md-card-actions>
+                            <p layout-padding class="md-caption" ng-if="snapshot.errorMessage">
+                              {{snapshot.errorMessage}}
+                            </p>
+                          </md-card>
+                      </div>
+                      <div flex="33" ng-show="vm.snapshotList.length < 3 && !vm.snapshotVerifying">
+                        <md-card>
+                            <webcam channel="vm.webcam.channel"
+                                  on-streaming="vm.webcam.onSuccess()"
+                                  on-error="vm.webcam.onError(err)"
+                                  on-stream="vm.webcam.onStream(stream)"></webcam>
+                            <md-card-actions layout="row" layout-align="end center">
+                              <md-button class="md-raised md-primary center" ng-click="vm.addSnapshot()">
+                                <md-icon>
+                                  camera
+                                </md-icon>
+                                Foto hinzufügen
+                              </md-button>
+                            </md-card-actions>
+                          </md-card>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-show="vm.acceptedSnapshots() == 3">
+                    <p class="md-body-1">
+                      Super. Damit haben wir drei gute Fotos um dein Gesicht wiederzuerkennen. 
+                      Bitte gib nun <a href="#" ng-click="vm.selectedIndex = 1"> deine Nutzerdaten</a> an.
+                    </p>
+                  </div>
+                </div>
+            </md-content>
+          </md-tab>
+          <md-tab label="Nutzerdetails" ng-disabled="vm.selectedIndex != 1">
+            <md-content class="md-padding">
+              <div class="md-dialog-content">
+                <md-content layout-padding>
+                  <div>
+                    <form name="userForm">
+                      <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                          <label>Name</label>
+                          <input ng-model="vm.name" required>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                        </md-input-container>
+                      </div>
+                      <md-input-container class="md-block">
+                        <label>Dein Geheimnis. Es kann nur mit deinem Gesicht entsperrt werden.</label>
+                        <textarea ng-model="vm.secret" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+                      </md-input-container>
+                      <md-input-container class="md-block">
+                        <md-button class="md-raised md-primary center" ng-disabled="!vm.name" ng-click="vm.createUser()">
+                          Registrierung abschließen
+                        </md-button>
+                      </md-input-container>
+                    </form>
+                  </div>
+                </md-content>
+              </div>
+            </md-content>
+          </md-tab>
+          <md-tab label="Registrierung abschließen" ng-disabled="vm.selectedIndex != 2">
+            <md-content>
+              <div class="md-dialog-content">
+                <md-content layout-padding>
+                  <md-content>
+                    <h2 class="md-headline"> API Tasks </h2>
+                    <p> Die folgenden Tasks werden nun an der Microsoft Cognitive Services API durchgeführt </p>
+                    <md-list-item class="secondary-button-padding">
+                        <p>Person hinzufügen</p>
+                        <md-checkbox class="md-secondary" ng-checked="vm.stepsFinished[0]"></md-checkbox>
+                    </md-list-item>
+
+                    <md-list-item class="secondary-button-padding">
+                        <p>Snapshots hochladen</p>
+                        <md-checkbox class="md-secondary disabled" ng-checked="vm.stepsFinished[1]"></md-checkbox>
+                    </md-list-item>
+
+                    <md-list-item class="secondary-button-padding">
+                        <p>Training der Gesichter starten</p>
+                        <md-checkbox class="md-secondary disabled" ng-checked="vm.stepsFinished[2]"></md-checkbox>
+                    </md-list-item>
+
+                    <md-list-item class="secondary-button-padding">
+                        <p>Ergebnis des Training</p>
+                        <md-checkbox class="md-secondary disabled" ng-checked="vm.stepsFinished[3]"></md-checkbox>
+                    </md-list-item>
+                  </md-content>
+                  <div layout="row" layout-sm="column" layout-align="space-around" ng-show="!vm.stepsFinished[3]">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                  </div>
+                  <div ng-show="vm.stepsFinished[3]"> 
+                    <h3> Herzlichen Glückwunsch </h3>
+                    Du bist erfolgreich registriert. Du kannst dieses Fenster nun 
+                      <a href="#" ng-click="vm.closeSignUpDialog()">schließen</a>
+                    und dich mit deinem Gesicht anmelden.
+                  </div>
+                </md-content>
+              </div>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+<!--        
+           <div layout="row" flex="100">
+            <md-card flex="26" ng-repeat="snapshot in vm.snapshotList">
+              <img ng-src="{{snapshot}}" class="md-card-image">
+              <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-icon-button" aria-label="Favorite">
+                  <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Settings">
+                  <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Share">
+                  <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
+                </md-button>
+              </md-card-actions>
+            </md-card>
+          </div>
+        </div>
+      </div>-->
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" md-content>
+      <md-button class="md-raised md-primary center" ng-click="vm.closeSignUpDialog()">Abbrechen</md-button>
+    </md-dialog-actions>
+</md-dialog>
