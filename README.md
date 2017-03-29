@@ -23,6 +23,17 @@ Die App kann im Entwicklungsmodus über ```gulp run``` gestartet werden.
 Mit Hilfe von ```npm run dist``` wird auf Basis der aktuellen Plattform ein distributable package erstellt.
 Dieses distributable package kann nun an die App-Nutzer verteilt werden.
 
+Um eine spezifische Plattform anzugeben, können Argumente an das build-script übergeben werden:
+Das folgende Kommando erzeugt eine portable Windows-Executable
+```
+    npm run dist -- --win portable
+```
+
+Für OSX:
+```
+    npm run dist -- --mac
+```
+
 # Rate Limits
 Die Microsoft Cognitive Services API hat strikte rate limits auf die Anzahl der Requests, die pro Minute gesendet werden dürfen.
 
