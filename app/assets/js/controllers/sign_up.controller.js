@@ -22,7 +22,6 @@
             return;
           }
           return FaceSnapshotService.identifyUser(snapshot.data).then(function(userData) {
-            console.log(userData);
             if (userData.success && userData.data.person) {
               snapshot.accepted = false;
               snapshot.errorMessage = 'Dieses Gesicht wurde bereits einem Nutzer zugeordnet.';
@@ -73,12 +72,13 @@
                     vm.stepsFinished[3] = true;
                     return $localStorage.users.push({
                       personId: user.personId,
+                      personGroup: $localStorage.settings.personGroup,
                       name: vm.name,
                       secret: vm.secret
                     });
                   } else if (data.status === 'failed') {
                     $interval.cancel(checkTrainingInterval);
-                    return vm.stepsFinished[3] = true;
+                    return vm.stepsFinished[3] = false;
                   }
                 });
               }), 2000);

@@ -1,64 +1,63 @@
 <md-dialog aria-label="Registrierung"  style="width: 90%">
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Authentifizierung</h2>
-      </div>
-    </md-toolbar>
-
-    <md-dialog-content>
-        <md-content class="md-padding">
-              <div class="md-dialog-content" >
-                  <div layout="column">
-                    <div layout="row">
-                      <div flex="33">
-                        <md-card>
-                            <webcam channel="vm.webcam.channel"
-                                  on-streaming="vm.webcam.onSuccess()"
-                                  on-error="vm.webcam.onError(err)"
-                                  on-stream="vm.webcam.onStream(stream)" ng-if="!vm.snapshot.withLandmarks"></webcam>
-                            <img ng-src="{{vm.snapshot.withLandmarks}}" class="md-card-image" ng-if="vm.snapshot.withLandmarks">
-                            <md-card-actions layout="row" layout-align="space-between center">
-                              <div>
-                                <md-progress-circular md-diameter="25" ng-show="vm.snapshot.inProgress" md-mode="indeterminate"></md-progress-circular>
-                              </div>
-                              <md-button class="md-raised md-primary center" ng-disabled="vm.snapshot.inProgress || vm.identifiedUser" ng-click="vm.doAuthSnapshot()">
-                                <md-icon>
-                                  camera
-                                </md-icon>
-                                Authentifizieren
-                              </md-button>
-                            </md-card-actions>
-                          </md-card>
-                      </div>
-                      <div flex="66">
-                        <md-content class="md-padding" ng-if="!vm.snapshot.identified">
-                          <h2 class=" md-headline">Authentifizierung</h2>
-                          <p class="md-body-1">
-                          Bitte melde dich an.
-                          </p>
-                          <p class="md-body-1">
-                            Schaue dazu direkt in die Kamera und klicke auf "Authentifizieren".
-                          </p>
-                        </md-content>
-                        <md-content class="md-padding" ng-if="vm.snapshot.identified">
-                          <h2 class=" md-headline">Authentifizierung erfolgreich</h2>
-                          <p class="md-body-1">
-                          Willkommen, {{vm.identifiedUser.name}}!
-                          </p>
-                          <p class="md-body-1">
-                            Du kannst das Anmeldefenster nun schließen, dein persönliches Dashboard wird daraufhin für dich entsperrt.
-                          </p>
-                          <p class="md-body-1">
-                            <md-button class="md-raised md-primary" ng-click="vm.closeSignInDialog()">Schließen</md-button>
-                          </p>
-                        </md-content>
-                      </div>
-                    </div>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Authentifizierung</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content class="md-padding">
+      <div class="md-dialog-content" >
+        <div layout="column">
+          <div layout="row">
+            <div flex="33">
+              <md-card>
+                <webcam channel="vm.webcam.channel"
+                  on-streaming="vm.webcam.onSuccess()"
+                  on-error="vm.webcam.onError(err)"
+                  on-stream="vm.webcam.onStream(stream)" ng-if="!vm.snapshot.withLandmarks"></webcam>
+                <img ng-src="{{vm.snapshot.withLandmarks}}" class="md-card-image" ng-if="vm.snapshot.withLandmarks">
+                <md-card-actions layout="row" layout-align="space-between center">
+                  <div>
+                    <md-progress-circular md-diameter="25" ng-show="vm.snapshot.inProgress" md-mode="indeterminate"></md-progress-circular>
                   </div>
-                </div>
-            </md-content>
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <md-button class="md-raised md-primary center" ng-click="vm.cancelSignInDialog()">Abbrechen</md-button>
-    </md-dialog-actions>
+                  <md-button class="md-raised md-primary center" ng-disabled="vm.snapshot.inProgress || vm.identifiedUser" ng-click="vm.doAuthSnapshot()">
+                    <md-icon>
+                      camera
+                    </md-icon>
+                    Authentifizieren
+                  </md-button>
+                </md-card-actions>
+              </md-card>
+            </div>
+            <div flex="66">
+              <md-content class="md-padding" ng-if="!vm.snapshot.identified">
+                <h2 class=" md-headline">Authentifizierung</h2>
+                <p class="md-body-1">
+                  Bitte melde dich an.
+                </p>
+                <p class="md-body-1">
+                  Schaue dazu direkt in die Kamera und klicke auf "Authentifizieren".
+                </p>
+              </md-content>
+              <md-content class="md-padding" ng-if="vm.snapshot.identified">
+                <h2 class=" md-headline">Authentifizierung erfolgreich</h2>
+                <p class="md-body-1">
+                  Willkommen, {{vm.identifiedUser.name}}!
+                </p>
+                <p class="md-body-1">
+                  Du kannst das Anmeldefenster nun schließen, dein persönliches Dashboard wird daraufhin für dich entsperrt.
+                </p>
+                <p class="md-body-1">
+                  <md-button class="md-raised md-primary" ng-click="vm.closeSignInDialog()">Schließen</md-button>
+                </p>
+              </md-content>
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <md-button class="md-raised md-primary center" ng-click="vm.cancelSignInDialog()">Abbrechen</md-button>
+  </md-dialog-actions>
 </md-dialog>

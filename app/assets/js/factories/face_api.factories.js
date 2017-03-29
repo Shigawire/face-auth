@@ -26,7 +26,7 @@
 
   this.FaceAuthApp.factory('Person', [
     '$resource', '$localStorage', function($resource, $localStorage) {
-      return $resource('https://westus.api.cognitive.microsoft.com/face/v1.0/persongroups/:personGroup/persons', {
+      return $resource('https://westus.api.cognitive.microsoft.com/face/v1.0/persongroups/:personGroup/persons/:personId', {
         personGroup: '@personGroup',
         personId: '@personId'
       }, {
@@ -38,6 +38,13 @@
           }
         },
         get: {
+          headers: {
+            'Content-Type': 'application/json',
+            'Ocp-Apim-Subscription-Key': $localStorage.settings.apiKey
+          }
+        },
+        "delete": {
+          method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
             'Ocp-Apim-Subscription-Key': $localStorage.settings.apiKey

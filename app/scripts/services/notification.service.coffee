@@ -1,8 +1,8 @@
 @FaceAuthApp.service 'NotificationService', [
-    '$mdToast'
-    ($mdToast) -> 
+  '$mdToast'
+  ($mdToast) -> 
 
-    vm = @
-    vm.error = (message) ->
-        $mdToast.show $mdToast.simple().textContent(rejection.message).position(pinTo).hideDelay(3000)
+  vm = @
+  vm.error = (message) ->
+    $mdToast.show $mdToast.simple().textContent(rejection.message).position(pinTo).hideDelay(3000)
 ]

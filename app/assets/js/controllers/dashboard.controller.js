@@ -3,7 +3,6 @@
     '$scope', '$mdDialog', 'Person', '$localStorage', function($scope, $mdDialog, Person, $localStorage) {
       var vm;
       vm = this;
-      vm.isLocked = true;
       vm.settings = $localStorage.settings;
       vm.showSignUpDialog = function(ev) {
         $mdDialog.show({

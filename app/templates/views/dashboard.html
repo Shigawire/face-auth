@@ -1,45 +1,40 @@
 <div ng-if="vm.settings.apiKey">
-    <div flex layout-padding ng-if="vm.currentUser">
-        <div layout="column" layout-align="top center">
-            <h3>Willkommen zurück, {{vm.currentUser.name}}!</h3>
-            <p class="md-body-2">Hier ist dein Geheimnis:</p>
-            <p class="md-body-1">
-                {{vm.currentUser.secret}}
-            </p>
-        </div>
-
-        <md-button class="md-raised md-accent" ng-click="vm.currentUser = undefined"> Dashboard sperren </md-button>
+  <div flex layout-padding ng-if="vm.currentUser">
+    <div layout="column" layout-align="top center">
+      <h3>Willkommen zurück, {{vm.currentUser.name}}!</h3>
+      <p class="md-body-2">Hier ist dein Geheimnis:</p>
+      <p class="md-body-1">
+        {{vm.currentUser.secret}}
+      </p>
     </div>
-
-    <div flex layout-padding ng-if="!vm.currentUser">
-        <h2 class="center md-headline"> Authentifizierung benötigt </h2>
-        <p class="md-body-1">
-            Dein persönliches Dashboard ist derzeit gesperrt. Melde dich an, um deine geschützen Daten
-            mit Hilfe eines Gesichts-Scans freizugeben.
-        </p>
-        <p class="md-body-2">
-            Falls du noch keinen Account hast, kannst du dich schnell und einfach registrieren.
-        </p>
-
-        <div layout="row" layout-align="center center">
-            <md-button class="md-raised md-primary" ng-click="vm.showSignInDialog()"> 
-                Login 
-                <md-icon> face </md-icon>
-            </md-button>
-
-            <md-button class="md-raised md-accent" ng-click="vm.showSignUpDialog()"> 
-                Registrieren 
-                <md-icon> add </md-icon>
-            </md-button>
-        </div>
+    <md-button class="md-raised md-accent" ng-click="vm.currentUser = undefined"> Dashboard sperren </md-button>
+  </div>
+  <div flex layout-padding ng-if="!vm.currentUser">
+    <h2 class="center md-headline"> Authentifizierung benötigt </h2>
+    <p class="md-body-1">
+      Dein persönliches Dashboard ist derzeit gesperrt. Melde dich an, um deine geschützen Daten
+      mit Hilfe eines Gesichts-Scans freizugeben.
+    </p>
+    <p class="md-body-2">
+      Falls du noch keinen Account hast, kannst du dich schnell und einfach registrieren.
+    </p>
+    <div layout="row" layout-align="center center">
+      <md-button class="md-raised md-primary" ng-click="vm.showSignInDialog()">
+        Login 
+        <md-icon> face </md-icon>
+      </md-button>
+      <md-button class="md-raised md-accent" ng-click="vm.showSignUpDialog()">
+        Registrieren 
+        <md-icon> add </md-icon>
+      </md-button>
     </div>
+  </div>
 </div>
 <div ng-if="!vm.settings.apiKey">
-    <div flex layout-padding>
-        <div layout="column" layout-align="top center">
-            <h3 class="md-headline">API Key fehlt</h3>
-        </div>
-
-        Du hast keinen API Key definiert. Bitte füge den Microsoft Cognitive Services API Key in den Einstellungen hinzu.
+  <div flex layout-padding>
+    <div layout="column" layout-align="top center">
+      <h3 class="md-headline">API Key fehlt</h3>
     </div>
+    Du hast keinen API Key definiert. Bitte füge den Microsoft Cognitive Services API Key in den Einstellungen hinzu.
+  </div>
 </div>

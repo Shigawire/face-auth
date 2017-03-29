@@ -3,10 +3,8 @@
     '$scope', '$mdDialog', '$localStorage', '$http', 'Person', function($scope, $mdDialog, $localStorage, $http, Person) {
       var vm;
       vm = this;
-      if (!$localStorage.settings) {
-        $localStorage.settings = {};
-      }
       vm.settings = $localStorage.settings;
+      vm.users = $localStorage.users;
       vm.editApiKey = function(ev) {
         var confirm;
         confirm = $mdDialog.prompt().title('Bitte gib deinen Microsoft Cognitive Services API Key an').placeholder('API Key').ariaLabel('API Key').initialValue(vm.settings.apiKey).targetEvent(ev).ok('Speichern').cancel('Abbrechen');
@@ -31,6 +29,7 @@
             }
           }).then((function(response) {
             vm.settings.personGroup = result;
+            location.reload();
             Person.trainFaces({
               personGroup: result
             });

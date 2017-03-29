@@ -1,52 +1,70 @@
 <md-tabs md-dynamic-height>
-    <!--<md-tab label="Nutzerdetails" ng-disabled="vm.acceptedSnapshots() != 3">-->
-    <md-tab label="Einstellungen">
+  <!--<md-tab label="Nutzerdetails" ng-disabled="vm.acceptedSnapshots() != 3">-->
+  <md-tab label="Einstellungen">
     <div class="md-padding">
-        <h2 class="center md-headline"> Einstellungen </h2>
+      <h2 class="center md-headline"> Einstellungen </h2>
+      <p class="md-body-1">
+        Hier kannst du Einstellungen für die Microsoft Cognitive Services API bearbeiten.
+        Es muss ein gültiger API-Key und eine PersonGroup angelegt werden.
+      </p>
+      <div>
+        <div layout-padding>
+          <md-list-item class="secondary-button-padding" ng-click="vm.editApiKey($event)">
+            <p>Cognitive API Key</p>
+            <pre> {{vm.settings.apiKey}} </pre>
+            <md-checkbox class="md-secondary" ng-checked="vm.settings.apiKey != undefined"></md-checkbox>
+          </md-list-item>
+          <md-list-item class="secondary-button-padding" ng-click="vm.editPersonGroup($event)">
+            <p>API Person Groups</p>
+            <pre> {{vm.settings.personGroup}} </pre>
+            <md-checkbox class="md-secondary disabled" ng-checked="vm.settings.personGroup != undefined"></md-checkbox>
+          </md-list-item>
+        </div>
+        <h3 class="md-headline">
+          Achtung!
+        </h3>
         <p class="md-body-1">
-            Hier kannst du Einstellungen für die Microsoft Cognitive Services API bearbeiten.
-            Es muss ein gültiger API-Key und eine PersonGroup angelegt werden.
+          Da die Microsoft Cognitive Services API immer nur eine personGroup durchsucht, können Gesichter in anderen Gruppen nicht mehr 
+          identifiziert werden, sobald die personGroup geändert wird!
         </p>
-        <div>
-            <div layout-padding>
-                <md-list-item class="secondary-button-padding" ng-click="vm.editApiKey($event)">
-                    <p>Cognitive API Key</p>
-                    <pre> {{vm.settings.apiKey}} </pre>
-                    <md-checkbox class="md-secondary" ng-checked="vm.settings.apiKey != undefined"></md-checkbox>
-                </md-list-item>
-
-                <md-list-item class="secondary-button-padding" ng-click="vm.editPersonGroup($event)">
-                    <p>API Person Groups</p>
-                    <pre> {{vm.settings.personGroup}} </pre>
-                    <md-checkbox class="md-secondary disabled" ng-checked="vm.settings.personGroup != undefined"></md-checkbox>
-                </md-list-item>
-
-            </div>
-            <h3 class="md-headline">
-                Achtung!
-            </h3>
-            <p class="md-body-1">
-                Sobald du die personGroup änderst, werden alle Nutzer in der App gelöscht.
-            </p>
-            <p class="md-body-1">
-                Da die Microsoft Cognitive Services API immer nur eine personGroup durchsucht, können Gesichter in anderen Gruppen nicht mehr 
-                identifiziert werden.
-            </p>
-            <p class="md-body-1">
-                Bitte warte ein paar Minuten nach dem Anlegen einer personGroup. Andernfalls ist bei der ersten Registrierung der Trainingsmodus
-                noch nicht beendet. Währenddessen können keine weiteren Gesichter angelegt werden - die API wird unerwartete Ergebnisse zurückliefern.
-            </p>
-
-            
-        </div>
+        <p class="md-body-1">
+          Es ist möglich, dass nach dem Anlegen einer personGroup "rate limited exceeded"-Nachrichten angezeigt werden. Diese rate limits können leider nicht 
+          umgangen werden, in den meisten Fällen werden diese API-calls jedoch abgefangen und erneut versucht.
+        </p>
+        <p class="md-body-1">
+          Nach dem Anlegen oder Ändern einer personGroup wird die App einige Male eine "not trained"-Nachricht anzeigen, da in dieser Gruppe bisher keine
+          trainierbaren Gesichter angelegt sind. Sobald der erste Nutzeraccount angelegt ist, werden diese Nachrichten verschwinden.
+        </p>
+      </div>
     </div>
-    </md-tab>
-    <md-tab label="Nutzerverzeichnis">
+  </md-tab>
+  <md-tab label="Nutzerverzeichnis">
     <md-content class="md-padding">
-        <div>
+      <div>
         <md-content layout-padding>
+          <md-list>
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="10"><strong>Name</strong></span>
+                <span flex="40"><strong>Microsoft API PersonId</strong></span>
+                <span flex="30"><strong>Microsoft API personGroup</strong></span>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" ng-repeat="user in vm.users">
+              <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="10">{{user.name}}</span>
+                <span flex="40">{{user.personId}}</span>
+                <span flex="30">{{user.personGroup}}</span>
+                <!--<span flex="10">
+                  <md-button class="md-raised md-accent" ng-click="vm.deleteUser(user)">
+                    Löschen 
+                  </md-button>
+                </span>-->
+              </div>
+            </md-list-item>
+          </md-list>
         </md-content>
-        </div>
+      </div>
     </md-content>
-    </md-tab>
+  </md-tab>
 </md-tabs>
