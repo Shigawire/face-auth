@@ -98,6 +98,7 @@
       };
       vm.closeSignUpDialog = function() {
         $mdDialog.hide();
+        vm.webcam.turnOff();
       };
       return vm;
     }

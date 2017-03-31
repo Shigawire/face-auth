@@ -1,12 +1,13 @@
 (function() {
   this.FaceAuthApp.service('WebcamService', [
-    function() {
-      var _stream, _video, getVideoData, service, webcam;
+    '$rootScope', function($rootScope) {
+      var _stream, _video, activeStream, getVideoData, service, webcam;
       webcam = {};
       webcam.isTurnOn = false;
       webcam.patData = null;
       _video = null;
       _stream = null;
+      activeStream = null;
       webcam.patOpts = {
         x: 0,
         y: 0,
@@ -44,9 +45,9 @@
         webcam.patOpts.w = _video.width;
         webcam.patOpts.h = _video.height;
         webcam.isTurnOn = true;
+        $rootScope.$apply();
       };
       webcam.onStream = function(stream) {
-        var activeStream;
         activeStream = stream;
         return activeStream;
       };

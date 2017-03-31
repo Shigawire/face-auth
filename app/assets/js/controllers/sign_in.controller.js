@@ -1,14 +1,20 @@
 (function() {
   this.FaceAuthApp.controller('SignInController', [
-    '$scope', 'WebcamService', 'FaceSnapshotService', '$localStorage', '$mdDialog', function($scope, WebcamService, FaceSnapshotService, $localStorage, $mdDialog) {
+    '$scope', 'WebcamService', 'FaceSnapshotService', '$localStorage', '$mdDialog', '$interval', function($scope, WebcamService, FaceSnapshotService, $localStorage, $mdDialog, $interval) {
       var vm;
       vm = this;
+      vm;
       vm.webcam = WebcamService.webcam;
+      $scope.$watch('vm.webcam.isTurnOn', function(newVal, oldVal) {
+        return console.log(newVal);
+      });
       vm.closeSignInDialog = function() {
-        return $mdDialog.hide(vm.identifiedUser);
+        $mdDialog.hide(vm.identifiedUser);
+        return vm.webcam.turnOff();
       };
       vm.cancelSignInDialog = function() {
-        return $mdDialog.hide(void 0);
+        $mdDialog.hide(void 0);
+        return vm.webcam.turnOff();
       };
       vm.doAuthSnapshot = function() {
         vm.snapshot = {

@@ -5,20 +5,32 @@
   'FaceSnapshotService'
   '$localStorage'
   '$mdDialog'
-  ($scope, WebcamService, FaceSnapshotService, $localStorage, $mdDialog) ->
+  '$interval'
+  ($scope, WebcamService, FaceSnapshotService, $localStorage, $mdDialog, $interval) ->
     # inject "this"
     vm = @
+    vm
 
     # load the webcam service to the scope
     vm.webcam = WebcamService.webcam
+
+    $scope.$watch('vm.webcam.isTurnOn', (newVal, oldVal) ->
+      console.log newVal
+    )
 
     # close the dialog window and pass an identified user back to the dashboardController
     vm.closeSignInDialog = ->
       $mdDialog.hide(vm.identifiedUser)
 
+      # turn off the camera
+      vm.webcam.turnOff()
+
     # cancel the sign in process, i.e. return no identified user
     vm.cancelSignInDialog = ->
       $mdDialog.hide(undefined)
+
+      # turn off the camera
+      vm.webcam.turnOff()
 
     # take a snapshot and authenticate the user
     vm.doAuthSnapshot = ->

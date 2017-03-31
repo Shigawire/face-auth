@@ -29,7 +29,10 @@
         </md-content>
     </div>
     <canvas style="display: none;" id="snapshot-storage" width="200" height="200"></canvas>
-    <!-- build:js scripts/vendor.js -->
+    
+    <!-- Diese Assets sind kompilierte Versionen aus dem Coffee-Script Quellen in app/scripts/**/*coffee 
+    -->
+    <!-- Pakete-->
     <script src="assets/js/libs/angular.js"></script>    
     <script src="assets/js/libs/angular-ui-router.js"></script>
     <script src="assets/js/libs/angular-resource.js"></script>
@@ -38,23 +41,21 @@
     <script src="assets/js/libs/angular-material.js"></script>
     <script src="assets/js/libs/ngStorage.js"></script>
     <script src="assets/js/libs/webcam.min.js"></script>
-    <!-- endbuild -->
-   
-    <!-- build:app scripts/app.js -->
+    
+   <!-- App & Konfigurationen -->
     <script src="assets/js/app.js"></script>
     <script src="assets/js/configs/routes.js"></script>
     <script src="assets/js/configs/error_interceptor.js"></script>
     <script src="assets/js/services/webcam.service.js"></script>
     <script src="assets/js/services/face_snapshot.service.js"></script>
     <script src="assets/js/services/notification.service.js"></script>
-
     <script src="assets/js/factories/face_api.factories.js"></script>
 
+    <!-- Controller -->
     <script src="assets/js/controllers/app.controller.js"></script>
     <script src="assets/js/controllers/dashboard.controller.js"></script>
     <script src="assets/js/controllers/sign_up.controller.js"></script>
     <script src="assets/js/controllers/sign_in.controller.js"></script>
     <script src="assets/js/controllers/settings.controller.js"></script>
-    <!-- endbuild -->
 </body>
 </html>

@@ -49,7 +49,10 @@
                                   on-error="vm.webcam.onError(err)"
                                   on-stream="vm.webcam.onStream(stream)"></webcam>
                             <md-card-actions layout="row" layout-align="end center">
-                              <md-button class="md-raised md-primary center" ng-click="vm.addSnapshot()">
+                              <p style="md-body-1" ng-if="!vm.webcam.isTurnOn">
+                                Auf Kamera warten
+                              </p>
+                              <md-button class="md-raised md-primary center" ng-click="vm.addSnapshot()" ng-disabled="!vm.webcam.isTurnOn">
                                 <md-icon>
                                   camera
                                 </md-icon>

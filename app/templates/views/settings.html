@@ -39,22 +39,24 @@
     </div>
   </md-tab>
   <md-tab label="Nutzerverzeichnis">
-    <md-content class="md-padding">
+     <div class="md-padding">
       <div>
-        <md-content layout-padding>
+        <div layout-padding>
           <md-list>
             <md-list-item class="md-2-line">
               <div class="md-list-item-text" layout="row" layout-align="start center">
                 <span flex="10"><strong>Name</strong></span>
-                <span flex="40"><strong>Microsoft API PersonId</strong></span>
-                <span flex="30"><strong>Microsoft API personGroup</strong></span>
+                <span flex="55"><strong>Microsoft API PersonId</strong></span>
+                <span flex="5"></span>
+                <span flex="35"><strong>Microsoft API personGroup</strong></span>
               </div>
             </md-list-item>
             <md-list-item class="md-2-line" ng-repeat="user in vm.users">
               <div class="md-list-item-text" layout="row" layout-align="start center">
                 <span flex="10">{{user.name}}</span>
-                <span flex="40">{{user.personId}}</span>
-                <span flex="30">{{user.personGroup}}</span>
+                <span flex="55">{{user.personId}}</span>
+                <span flex="5"></span>
+                <span flex="35">{{user.personGroup}}</span>
                 <!--<span flex="10">
                   <md-button class="md-raised md-accent" ng-click="vm.deleteUser(user)">
                     Löschen 

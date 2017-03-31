@@ -20,7 +20,10 @@
                   <div>
                     <md-progress-circular md-diameter="25" ng-show="vm.snapshot.inProgress" md-mode="indeterminate"></md-progress-circular>
                   </div>
-                  <md-button class="md-raised md-primary center" ng-disabled="vm.snapshot.inProgress || vm.identifiedUser" ng-click="vm.doAuthSnapshot()">
+                  <p style="md-body-1" ng-if="!vm.webcam.isTurnOn">
+                    Auf Kamera warten
+                  </p>
+                  <md-button class="md-raised md-primary center" ng-disabled="vm.snapshot.inProgress || vm.identifiedUser || !vm.webcam.isTurnOn" ng-click="vm.doAuthSnapshot()">
                     <md-icon>
                       camera
                     </md-icon>

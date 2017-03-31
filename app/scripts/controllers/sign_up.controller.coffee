@@ -141,6 +141,9 @@
     # cancel the sign up dialog
     vm.closeSignUpDialog = ->
       $mdDialog.hide()
+
+      # turn off the camera
+      vm.webcam.turnOff()
       return
     
     return vm
